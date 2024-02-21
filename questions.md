@@ -1,0 +1,1 @@
+// Question : Is there any way to make the user who added the brand is the only person who can delete it without making two queries for the Database ?! one for finding the brand and matching  the addedby field with the authUser Id and the other one for the deletion 
