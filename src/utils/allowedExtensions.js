@@ -1,5 +1,5 @@
 export const allowedExtensions = {
-    image: ['jpg', 'jpeg', 'png', 'gif'],
+    image: ['jpg', 'jpeg', 'png', 'gif','webp'],
     video: ['mp4', 'avi', 'mkv'],
     audio: ['mp3', 'wav'],
     document: ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt'],

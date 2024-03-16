@@ -24,7 +24,7 @@ export let signUp = async (req,res,next)=>{
     }
     // 4-generate verification token and link
     let verificationToken = jwt.sign({email}, process.env.EMAIL_VERFICATION_SECRET, { expiresIn: '1h' });
-    let verificationLink = `http://localhost:3000/auth/verifyEmail?token=${verificationToken}`
+    let verificationLink = `${req.protocol}://${req.headers.host}/auth/verifyEmail?token=${verificationToken}`
     //4-send verification email 
     let isEmailAccepted = await sendEmail({to:email,subject: "Email Verification",message:`<h1>Follow This Link To Verifiy Your Account</h1> 
     <a href='${verificationLink}'>Click To Verify Email </a>`,attachments:[]})
