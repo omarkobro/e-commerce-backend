@@ -31,7 +31,7 @@ export let addBrand = async (req,res,next)=>{
     //4- Handle The Image
         //4.1- check if an image is sent or not
         if(!req.file){
-            return next(new Error("Please Upload Category Image"),{ cause: 400 })
+            return next(new Error("Please Upload Brand Image"),{ cause: 400 })
         }
         //4.2- generate Unique Folder Name
         let folderId = generateUniqueString(4)
@@ -40,7 +40,7 @@ export let addBrand = async (req,res,next)=>{
             folder:`${process.env.MAIN_FOLDER}/Categories/${checkSubCategory.categoryId.folderId}/SubCategories/${checkSubCategory.folderId}/Brands/${folderId}`
         })
     //5- Create Category Object
-    let brand = { 
+    let brand = {  
         name:brandName,
         slug,
         Image:{secure_url,public_id},

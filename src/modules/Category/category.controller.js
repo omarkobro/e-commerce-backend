@@ -26,11 +26,12 @@ export let addCategory = async (req,res,next)=>{
         }
         //4.2- generate Unique Folder Name
         let folderId = generateUniqueString(4)
-        //4.3 upload The Image and get the secure URL and Public ID
+        //4.3- upload The Image and get the secure URL and Public ID
         let {secure_url, public_id} = await cloudinaryConnection().uploader.upload(req.file.path,{
             folder:`${process.env.MAIN_FOLDER}/Categories/${folderId}`
         })
-
+        // 4.4-  pass the fodler path to the rollback middleware
+        req.folder = `${process.env.MAIN_FOLDER}/Categories/${folderId}`
     //5- Create Category Object
     let category = { 
         name:categoryName,
@@ -121,16 +122,16 @@ export const deleteCategory = async (req, res, next) => {
 
     // 2-delete subcategories
     const subCategories = await SubCategory.deleteMany({ categoryId })
-    if (subCategories.deletedCount <= 0) {
+    // if (subCategories.deletedCount <= 0) {
 
-        return next({ cause: 404, message: 'No Sub Categories Found' })
-    }
+    //     return next({ cause: 404, message: 'No Sub Categories Found' })
+    // }
 
     //3- delete the related brands
     const brands = await Brand.deleteMany({ categoryId })
-    if (brands.deletedCount <= 0) {
-        return next({ cause: 404, message: 'No Brands Found' })
-    }
+    // if (brands.deletedCount <= 0) {
+    //     return next({ cause: 404, message: 'No Brands Found' })
+    // }
 
 
     // 4- delete the category folder from cloudinary
