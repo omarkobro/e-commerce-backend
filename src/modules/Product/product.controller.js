@@ -5,7 +5,7 @@ import Brand from "../../../DB/models/brand.model.js"
 import { systemRoles } from "../../utils/systemRoles.js"
 import generateUniqueString from "../../utils/generateUniqueString.js"
 import cloudinaryConnection from "../../utils/cloudinary.js"
-import Product from "../../../DB/Models/product.model.js"
+import Product from "../../../DB/models/product.model.js"
 import { ApiFeatures } from "../../utils/api-features.js"
 //============= add Product =================
 export let addProduct = async (req,res,next)=>{

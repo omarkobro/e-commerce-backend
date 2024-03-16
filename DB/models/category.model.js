@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 let categorySchema = new Schema({
     name:{type:String, required:true, unique:true, trim:true},
@@ -18,5 +18,7 @@ categorySchema.virtual("Subcategories",{
     foreignField:"categoryId"
 })
 
-let Category = model("Category", categorySchema)
-export default Category
+// let Category = model("Category", categorySchema)
+// export default Category
+
+export default mongoose.models.Category || model('Category', categorySchema)

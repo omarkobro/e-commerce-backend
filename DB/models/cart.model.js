@@ -33,6 +33,5 @@ let cartSchema = new Schema({
         required:true
     }
 },{timestamps:true})
-let Cart = model("Cart",cartSchema)
 
-export default Cart
+export default mongoose.models.Cart || model('Cart', cartSchema)
