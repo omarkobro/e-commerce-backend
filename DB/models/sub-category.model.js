@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+import mongoose, { Schema, model } from "mongoose"
 
 
 //============================== Create the subcategory schema ==============================
@@ -27,5 +27,6 @@ const subCategorySchema = new Schema({
         foreignField:"subCategoryId"
 
     })
-let SubCategory = model("SubCategory", subCategorySchema)
-export default SubCategory
+// let SubCategory = model("SubCategory", subCategorySchema)
+// export default SubCategory
+export default mongoose.models.SubCategory || model('SubCategory', subCategorySchema)

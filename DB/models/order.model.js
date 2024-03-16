@@ -39,6 +39,8 @@ let orderSchema = new Schema({
 
 },{timestamps:true})
 
-let Order = model("Order", orderSchema)
+// let Order = model("Order", orderSchema)
 
-export default Order
+// export default Order
+
+export default mongoose.models.Order || model('Order', orderSchema)

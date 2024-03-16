@@ -27,6 +27,8 @@ usageCount:{
 
 },{timestamps:true})
 
-let CouponUsers = model("CouponUsers",couponUsersSchema)
+// let CouponUsers = model("CouponUsers",couponUsersSchema)
 
-export default CouponUsers
+// export default CouponUsers
+
+export default mongoose.models.CouponUsers || model('CouponUsers', couponUsersSchema)

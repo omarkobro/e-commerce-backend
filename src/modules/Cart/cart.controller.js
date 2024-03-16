@@ -1,4 +1,4 @@
-import Cart from "../../../DB/Models/cart.model.js"
+import Cart from "../../../DB/models/cart.model.js"
 import { addCart } from "./cart-utils/addCartFunction.js"
 import { pushNewProduct } from "./cart-utils/addProductToCart.js"
 import { calculateSubTotal } from "./cart-utils/calcSubTotal.js"

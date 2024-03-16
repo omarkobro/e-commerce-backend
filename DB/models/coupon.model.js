@@ -46,6 +46,7 @@ updatedBy:{
 },
 },{timestamps:true})
 
-let Coupon = model("Coupon", couponSchema)
+// let Coupon = model("Coupon", couponSchema)
+// export default Coupon
 
-export default Coupon
+export default mongoose.models.Coupon || model('Coupon', couponSchema)

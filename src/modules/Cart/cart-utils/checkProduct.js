@@ -1,4 +1,4 @@
-import Product from "../../../../DB/Models/product.model.js"
+import Product from "../../../../DB/models/product.model.js"
 
 // notice that we don't return any errors or responses from the general functions  
 // function to check Product Availabilty

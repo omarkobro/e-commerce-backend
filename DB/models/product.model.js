@@ -39,5 +39,6 @@ specs:{
         timestamps: true
     })
 
-let Product = model('Product', productSchema)
-export default Product
+// let Product = model('Product', productSchema)
+// export default Product
+export default mongoose.models.Product || model('Product', productSchema)
