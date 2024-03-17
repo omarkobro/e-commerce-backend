@@ -1,6 +1,6 @@
 
 import { DateTime } from "luxon"
-import Product from "../../../DB/Models/product.model.js"
+import Product from "../../../DB/models/product.model.js"
 import CouponUsers from "../../../DB/models/couponUsers.model.js"
 import Order from "../../../DB/models/order.model.js"
 import { applyCouponValidation } from "../../utils/couponValidation.js"
