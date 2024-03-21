@@ -129,7 +129,7 @@ export let convertCartToOrder = async (req,res,next)=>{
     let checkCart = await getUserCart(userId)
     if (!checkCart) {
         return  next({message: 'Cart Is not found', cause: 404});
-    }
+    }   
 
     //3- check the coupon 
     //3.1 here we'll initaite teh coupon outside the if statment because we won't check on the coupon unless it's sent by the user
