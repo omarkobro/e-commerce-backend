@@ -14,7 +14,7 @@ basePrice:{type:Number, required:true},
 discount:{type:Number, defualt:0},
 appliedPrice:{type:Number, required:true},
 stock:{type:Number, required:true, min:0, defualt:0},
-rate:{type:Number, default:0, min:0 , max:0},
+rate:{type:Number, default:0, min:0 , max:5},
     //Arrays
 Images:[
     {

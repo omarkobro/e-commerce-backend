@@ -4,6 +4,7 @@ import Category from "../../../DB/models/category.model.js";
 import SubCategory from "../../../DB/models/sub-category.model.js";
 import cloudinaryConnection from "../../utils/cloudinary.js";
 import generateUniqueString from "../../utils/generateUniqueString.js";
+import { ApiFeatures } from "../../utils/api-features.js";
 
 //==================== Add Brand =======================
 export let addBrand = async (req,res,next)=>{
@@ -113,21 +114,33 @@ export const updateBrand = async (req, res, next) => {
 
 //============================== get all Brands ==============================
 export const getAllBrands = async (req, res, next) => {
+    // const brands = await Brand.find()
+    // res.status(200).json({ success: true, message: 'Brands fetched successfully', data: brands })
+    let {page, size,sort,...search } = req.query
+    let features = new ApiFeatures(req.query,Brand.find())
+    .pagination({page,size})
+    .sort(sort)
+    .search(search)
+    let brands = await features.mongooseQuery
+    if(!brands || brands.length <= 0){
+        return next({ cause: 404, message: 'No Brands Found' })
+    }
+    res.status(200).json({ success: true, data: brands })
+}
+
+
+//============================== get all Brands ==============================
+export const getAllBrandsForSpecificCategory = async (req, res, next) => {
     const brands = await Brand.find()
     res.status(200).json({ success: true, message: 'Brands fetched successfully', data: brands })
 }
 
-
 // ==================== Delete Brand =========================
-
 
 export const deleteBrand = async (req, res, next) => {
 
     //1 destruct Brand Id
     const { brandId } = req.params
-    
-    
-
     //3- delete brand
     const brand = await Brand.findByIdAndDelete(brandId).populate([{path:"categoryId",select:"folderId"},{path:"subCategoryId",select:"folderId"}])
     if (!brand) {

@@ -19,7 +19,7 @@ export async function applyCouponValidation(couponCode, userId){
     // start date check
     if(
         DateTime.now() < DateTime.fromISO(coupon.fromDate) 
-    ) return { msg: 'this coupon is not started yet' , status:400}
+    ) return { msg: 'This coupon has not been started yet' , status:400}
 
 
     // user cases

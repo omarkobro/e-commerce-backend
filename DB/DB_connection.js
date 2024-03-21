@@ -8,4 +8,4 @@ let db_connection = async ()=>{
     })
 }
 
-export default db_connection; 
+export default db_connection;

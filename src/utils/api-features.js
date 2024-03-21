@@ -32,16 +32,17 @@ export class ApiFeatures {
     }
     //3- search
     search(search) {
-        const queryFiler = {}
+        const queryFilter = {}
+        
+        if (search.name) queryFilter.name = { $regex: search.name, $options: 'i' }
+        if (search.title) queryFilter.title = { $regex: search.title, $options: 'i' }
+        if (search.description) queryFilter.desc = { $regex: search.desc, $options: 'i' }
+        if (search.discount) queryFilter.discount = { $ne: 0 }
+        if (search.priceFrom && !search.priceTo) queryFilter.appliedPrice = { $gte: search.priceFrom }
+        if (search.priceTo && !search.priceFrom) queryFilter.appliedPrice = { $lte: search.priceTo }
+        if (search.priceTo && search.priceFrom) queryFilter.appliedPrice = { $gte: search.priceFrom, $lte: search.priceTo }
 
-        if (search.title) queryFiler.title = { $regex: search.title, $options: 'i' }
-        if (search.description) queryFiler.desc = { $regex: search.desc, $options: 'i' }
-        if (search.discount) queryFiler.discount = { $ne: 0 }
-        if (search.priceFrom && !search.priceTo) queryFiler.appliedPrice = { $gte: search.priceFrom }
-        if (search.priceTo && !search.priceFrom) queryFiler.appliedPrice = { $lte: search.priceTo }
-        if (search.priceTo && search.priceFrom) queryFiler.appliedPrice = { $gte: search.priceFrom, $lte: search.priceTo }
-
-        this.mongooseQuery = this.mongooseQuery.find(queryFiler)
+        this.mongooseQuery = this.mongooseQuery.find(queryFilter)
         return this
     }
 

@@ -6,7 +6,7 @@ let userSchema = new Schema({
         type:String,
         required:true,
         minlength:2,
-        maxlength:10,
+        maxlength:20,
         trim:true,
         lowercase:true
     },
@@ -49,10 +49,23 @@ let userSchema = new Schema({
         type:Boolean,
         default:false
     },
+    OTP:{
+        type:String,
+        default:''
+    },
+    expiresIn:{
+        type: Number,
+        default : 0
+    },
+    Status:{
+        type:String,
+        enum:["Active","Inactive"],
+        default:"Active"
+    }
 },{timestamps:true})
 
 // let User = model("User", userSchema)
 
 // export default User
 
-export default mongoose.models.User || model('User', userSchema)
+export default mongoose.models.User || model('User', userSchema) 

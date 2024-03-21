@@ -23,6 +23,10 @@ isFixed:{
     type:Boolean,
     default:false
 },
+isEnabled:{
+    type:Boolean,
+    default:true
+},
 isPercentage:{
     type:Boolean,
     default:false
@@ -44,9 +48,14 @@ updatedBy:{
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
 },
+
+disabledAt:{type: String},
+disabledBy:{type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+enabledAt:{type: String},
+enabledBy:{type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 },{timestamps:true})
 
 // let Coupon = model("Coupon", couponSchema)
 // export default Coupon
 
-export default mongoose.models.Coupon || model('Coupon', couponSchema)
+export default  model('Coupon', couponSchema) || mongoose.models.Coupon

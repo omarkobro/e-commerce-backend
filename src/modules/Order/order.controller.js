@@ -1,12 +1,16 @@
 
 import { DateTime } from "luxon"
-import Product from "../../../DB/Models/product.model.js"
+import Product from "../../../DB/models/product.model.js"
 import CouponUsers from "../../../DB/models/couponUsers.model.js"
 import Order from "../../../DB/models/order.model.js"
 import { applyCouponValidation } from "../../utils/couponValidation.js"
 import { checkProductAvailability } from "../Cart/cart-utils/checkProduct.js"
 import { getUserCart } from "../Cart/cart-utils/getUserCart.js"
 import { qrCodeGeneration } from "../../utils/generate-qr-code.js"
+import { confirmPaymentIntent, createCheckoutSession, createPaymentIntent, createStripeCoupon, refundPaymentIntent } from "../../payment-handler/stripe.js"
+import { nanoid } from "nanoid"
+import createInvoice from "../../utils/pdfkit.js"
+import { sendEmail } from "../../services/send-email.service.js"
 
 
 //=================== make order =================
@@ -84,8 +88,35 @@ export let crateOrder = async (req,res,next)=>{
     }
     //11- generate QR code
     const orderQR =await qrCodeGeneration({orderId: order._id, user: order.user, totalPrice: order.totalPrice, orderStatus: order.orderStatus});
-    res.status(201).json({message: 'Order created successfully', orderQR,order});
 
+    //12- Create Invoice
+    let orderCode = `${req.authUser.userName}_${nanoid(3)}`
+    //12.1 - generate Invoice
+    let orderInvoice = {
+        shipping:{
+            name:req.authUser.userName,
+            address,
+            city,
+            state:"Cairo",
+            country
+        },
+        orderCode,
+        date:order.createdAt,
+        items:order.orderItems,
+        subTotal:order.totalPrice,
+        paidAmount: order.totalPrice
+    }
+    createInvoice(orderInvoice,`${orderCode}.pdf`)
+
+    let testPath = `./Files/${orderCode}.pdf`
+
+    await sendEmail({to:req.authUser.email,subject: "Order Confirmation",message:`<h1>Check The Following File To Review YOur Order</h1> 
+`,attachments:[
+    {
+        path:`./Files/${orderCode}.pdf`
+    }
+]})
+    res.status(201).json({message: 'Order created successfully', orderQR,order});
 }
 
 //=================== Convert CART TO order =================
@@ -120,7 +151,6 @@ export let convertCartToOrder = async (req,res,next)=>{
         }
     })
 
-    console.log(orderItems.quantity);
     //5- set Prices
     //5.1 we'll set shipping price as initial fixed value for now since we don't have locations system
 
@@ -188,4 +218,136 @@ export const deliverOrder = async (req, res, next) => {
 if(!updateOrder) return next({message: 'Order not found or It is already deliverd ', cause: 404});
 
     res.status(200).json({message: 'Order delivered successfully', order: updateOrder});
+}
+
+
+//================== Payment With Stripe ====================
+export const payWithStripe = async (req, res, next) => {
+    const {orderId}= req.params;
+    const {_id:userId} = req.authUser;
+
+    // get order details from our database
+    const order = await Order.findOne({_id:orderId , userId , orderStatus: 'Pending'});
+    if(!order) return next({message: 'Order not found or cannot be paid', cause: 404});
+
+    const paymentObject = {
+        customer_email:req.authUser.email,
+        metadata:{orderId: order._id.toString()},
+        discounts:[],
+        line_items:order.orderItems.map(item => {
+            return {
+                price_data: {
+                    currency: 'EGP',
+                    product_data: {
+                        name: item.title,
+                    },
+                    unit_amount: item.price * 100,
+                },
+                quantity: item.quantity,
+            }
+        })
+    }
+    // coupon check 
+    if(order.coupon){
+        const stripeCoupon = await createStripeCoupon({couponId: order.coupon});
+        if(stripeCoupon.status) return next({message: stripeCoupon.message, cause: 400});
+
+        paymentObject.discounts.push({
+            coupon: stripeCoupon.id
+        });
+    }
+    const checkoutSession = await createCheckoutSession(paymentObject);
+    const paymentIntent = await createPaymentIntent({amount: order.totalPrice, currency: 'EGP'})
+
+    order.payment_intent = paymentIntent.id;
+    await order.save();
+
+    res.status(200).json({checkoutSession });
+}
+
+//====================== stripe Webhook Local=================
+export const stripeWebhookLocal  =  async (req,res,next) => {
+    const orderId = req.body.data.object.metadata.orderId
+    const confirmedOrder  = await Order.findById(orderId )
+    if(!confirmedOrder) return next({message: 'Order not found', cause: 404});
+    await confirmPaymentIntent( {paymentIntentId: confirmedOrder.payment_intent} );
+    confirmedOrder.isPaid = true;
+    confirmedOrder.paidAt = DateTime.now().toFormat('yyyy-MM-dd HH:mm:ss');
+    confirmedOrder.orderStatus = 'Paid';
+
+    await confirmedOrder.save();
+    res.status(200).json({message: 'webhook received'}); 
+} 
+
+//====================== Refund Order =================
+
+export const refundOrder = async (req, res, next) => {
+    const{orderId} = req.params; 
+
+    const findOrder = await Order.findOne({_id: orderId, orderStatus: 'Paid'});
+    if(!findOrder) return next({message: 'Order not found or cannot be refunded', cause: 404});
+
+    // refund the payment intent
+    const refund = await refundPaymentIntent({paymentIntentId: findOrder.payment_intent});
+
+    findOrder.orderStatus = 'Refunded';
+    await findOrder.save();
+
+    res.status(200).json({message: 'Order refunded successfully', order: refund});
+} 
+
+// ====================== cancel order ===============================
+
+/**
+ * 1- check for the order 
+ * 2- check for the auth user
+ * 3- check for the creation time by checking on created at field 
+ * 4- if the cancilation is happening within a day from the order action: first check if the order is paid or not, if not > delete the order & if true> delete the order and refund
+ * 
+ */
+
+export let cancelOrder = async (req,res,next)=>{
+    //1- destruct needed data
+    let {orderId} = req.params
+    let {_id} = req.authUser
+    //2- check for the order existence
+    let checkOrder = await Order.findById(orderId)
+    if(!checkOrder){
+        return next({message: 'Order not found', cause: 404});
+    }
+    //3- check for user authoriztion for cancling the order
+    if(_id.toString() != checkOrder.userId.toString()){
+        return next({message: "You're Not Allowed to cancel this order", cause: 401});
+    }
+    //4- check for the creation time
+    let creationTime = DateTime.fromISO(checkOrder.createdAt.toISOString())
+    let todayDate = DateTime.now()
+    let diffInHours = Math.abs(todayDate.diff(creationTime, 'hours').hours)
+    if(diffInHours > 24){
+        return next({message: "You Can't cancel this order now because it's been more than 24 hours since you ordered it, for more details please contact the support ", cause: 403});
+    }
+    //5- check if the orderd is paid or not
+    if(checkOrder.isPaid){
+        //5.1 we'll delete the order from the DB
+        let cancelledOrded = await Order.findById(orderId)
+        if(!cancelledOrded){
+            return next({message: "Something Went Wrong Please Try Again", cause: 403});
+        }
+        //5.2 refund the paid price
+        const refund = await refundPaymentIntent({paymentIntentId: cancelledOrded.payment_intent});
+        cancelledOrded.orderStatus = "Cancelled"
+        cancelledOrded.cancelledAt = DateTime.now().toFormat('yyyy-MM-dd HH:mm:ss');
+        cancelledOrded.cancelledBy = _id
+        return res.status(200).json({message: 'Order Cancled and refunded successfully', order: refund});
+    }
+    //6- if not paid then just deleteThe Order
+    let cancelledOrded = await Order.findById(orderId)
+    if(!cancelledOrded){
+        return next({message: "Something Went Wrong Please Try Again", cause: 403});
+    }
+    cancelledOrded.orderStatus = "Cancelled"
+    cancelledOrded.cancelledAt = DateTime.now().toFormat('yyyy-MM-dd HH:mm:ss');
+    cancelledOrded.cancelledBy = _id
+    res.status(200).json({message: 'Order Cancled successfully', order: refund});
+    return res.status(200).json({message: 'success',cancelledOrded});
 }

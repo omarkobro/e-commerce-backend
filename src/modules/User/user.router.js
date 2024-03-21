@@ -14,4 +14,5 @@ let router = Router()
 router.put("/updateUser",validationMiddleware(updateUserSchema), auth(userPrivileges.UPDATE_ACC) , expressAsyncHandler(userController.updateAccount))
 router.delete("/deleteUser",auth(userPrivileges.UPDATE_ACC) , expressAsyncHandler(userController.deleteAccount))
 router.get("/getUserInfo",auth(userPrivileges.GET_ACC_INFO) , expressAsyncHandler(userController.getAccInfo))
+router.patch("/deactivateUser",auth(userPrivileges.DEACTIVATE_ACC) , expressAsyncHandler(userController.softDelete))
 export default router;

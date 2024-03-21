@@ -1,11 +1,11 @@
 
 import slugify from "slugify"
 import Category from "../../../DB/models/category.model.js"
-import User from "../../../DB/models/user.model.js"
 import generateUniqueString from "../../utils/generateUniqueString.js"
 import cloudinaryConnection from "../../utils/cloudinary.js"
 import SubCategory from "../../../DB/models/sub-category.model.js"
 import Brand from "../../../DB/models/brand.model.js"
+import { ApiFeatures } from "../../utils/api-features.js"
 
 //==================== Add Category =======================
 export let addCategory = async (req,res,next)=>{
@@ -100,11 +100,22 @@ export const updateCategory = async (req, res, next) => {
 
 //============================== get all categories ==============================
 export const getAllCategories = async (req, res, next) => {
-    const categories = await Category.find().populate([{
+    // const categories = await Category.find().populate([{
+    //     path:"Subcategories",
+    //     populate:[{path:"Brands"}]
+    // }])
+    // res.status(200).json({ success: true, message: 'Categories fetched successfully', data: categories })
+
+    let {page, size,sort,...search } = req.query
+    let features = new ApiFeatures(req.query, Category.find().populate([{
         path:"Subcategories",
         populate:[{path:"Brands"}]
-    }])
-    res.status(200).json({ success: true, message: 'Categories fetched successfully', data: categories })
+    }]))
+    .pagination({page,size})
+    .sort(sort)
+    .search(search)
+    let categories = await features.mongooseQuery
+    res.status(200).json({ success: true, data: categories })
 }
 
 
@@ -122,21 +133,71 @@ export const deleteCategory = async (req, res, next) => {
 
     // 2-delete subcategories
     const subCategories = await SubCategory.deleteMany({ categoryId })
-    // if (subCategories.deletedCount <= 0) {
-
-    //     return next({ cause: 404, message: 'No Sub Categories Found' })
-    // }
+    if (subCategories.deletedCount <= 0) {
+        console.log(subCategories.deletedCount);
+        console.log('There is no related subcategories');
+    }
 
     //3- delete the related brands
     const brands = await Brand.deleteMany({ categoryId })
-    // if (brands.deletedCount <= 0) {
-    //     return next({ cause: 404, message: 'No Brands Found' })
-    // }
-
-
+    if (brands.deletedCount <= 0) {
+        console.log(brands.deletedCount);
+        console.log('There is no related brands');
+    }
+    
     // 4- delete the category folder from cloudinary
     await cloudinaryConnection().api.delete_resources_by_prefix(`${process.env.MAIN_FOLDER}/Categories/${catgory.folderId}`)
     await cloudinaryConnection().api.delete_folder(`${process.env.MAIN_FOLDER}/Categories/${catgory.folderId}`)
 
     res.status(200).json({ success: true, message: 'Category deleted successfully' })
+}
+
+
+// ==================== Get All Sub Categories for a specific Category =========================
+
+export let getSubCategoriesForCategory = async(req,res,next)=>{
+    //1-destruct Data
+    let {categoryId} = req.params
+    //2- check for category 
+    let checkCategory = await Category.findById(categoryId)
+    if(!checkCategory){
+        return next({ cause: 404, message: 'Category not found' })
+    }
+    //3- get all subcategories where the category Id is = to categoryId 
+    let getAllSubCategories = await SubCategory.find({categoryId})
+    console.log(getAllSubCategories);
+    if(!getAllSubCategories){
+        return next({message:"No Subcategoris found", cause:404})
+    }
+    res.status(200).json({ message: 'Success', getAllSubCategories })
+}
+
+// ==================== Get All Sub Categories for a specific Category =========================
+export let getBrandsForCategory = async(req,res,next)=>{
+    //1-destruct Data
+    let {categoryId} = req.params
+    //2- check for category 
+    let checkCategory = await Category.findById(categoryId)
+    if(!checkCategory){
+        return next({ cause: 404, message: 'Category not found' })
+    }
+    //3- get all subcategories where the category Id is = to categoryId 
+    let getAllBrands = await Brand.find({categoryId})
+    console.log(getAllBrands);
+    if(!getAllBrands || getAllBrands.length <= 0){
+        return next({message:"No Brands found", cause:404})
+    }
+    res.status(200).json({ message: 'Success', getAllBrands })
+}
+
+// ==================== Get Category By Id =========================
+export let getCategoryById = async(req,res,next)=>{
+    //1-destruct Data
+    let {categoryId} = req.params
+    //2- check for category 
+    let checkCategory = await Category.findById(categoryId)
+    if(!checkCategory){
+        return next({ cause: 404, message: 'Category not found' })
+    }
+    res.status(200).json({ message: 'Success', checkCategory })
 }

@@ -25,7 +25,7 @@ let orderSchema = new Schema({
     totalPrice:{type: Number, required: true},
 
     paymentMethod:{type: String, enum:['Cash' ,'Stripe','Paymob'], required: true},
-    orderStatus:{type: String , enum:['Pending' ,'Paid','Delivered','Placed','Cancelled'], required: true , default: 'Pending'},
+    orderStatus:{type: String , enum:['Pending' ,'Paid','Delivered','Placed','Cancelled',"Refunded"], required: true , default: 'Pending'},
 
     isPaid:{type: Boolean, required: true, default: false},
     paidAt:{type: String},
@@ -33,9 +33,9 @@ let orderSchema = new Schema({
     isDelivered:{type: Boolean, required: true, default: false},
     deliveredAt:{type: String},
     deliveredBy:{type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    
     cancelledAt:{type: String},
     cancelledBy:{type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    payment_intent:String
 
 },{timestamps:true})
 

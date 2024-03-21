@@ -20,6 +20,10 @@ export let initiateApp = (app ,express)=>{
     app.use("/cart", routers.cartRouter)
     app.use("/coupon", routers.couponRouter)
     app.use("/order", routers.orderRouter)
+    app.use("/review", routers.reviewRouter)
+    app.use('*', (req,res,next)=>{
+        res.status(404).json({message: 'Not found'})
+    })
     app.use(globalResponse, rollBackUploadedFiles, rollBackSavedDocuments)
     cronToChangeExpiredCoupons()
     db_connection()
