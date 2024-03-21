@@ -1,0 +1,1663 @@
+{
+	"info": {
+		"_postman_id": "c3ae86d1-accf-491a-ae78-141f6c469fbc",
+		"name": "E-commerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29782867"
+	},
+	"item": [
+		{
+			"name": "Authentication End Points",
+			"item": [
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"Omar Kobro II\",\r\n    \"email\":\"omakobro123@gmail.com\",\r\n    \"password\":\"omar#123\",\r\n    \"age\":20,\r\n    \"phoneNumbers\":[\"01003653241\"],\r\n    \"addresses\":[\"Sharkia\"],\r\n    \"role\":\"admin\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/signUp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"signUp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/auth/verifyEmail?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9tYWtvYnJvMTIzQGdtYWlsLmNvbSIsImlhdCI6MTcwODI4OTY3MSwiZXhwIjoxNzA4MjkzMjcxfQ.g-ivv-b6L3Pv24hXXS8tz4t4Bh33rc-45iZJ12BXaWI",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"verifyEmail"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9tYWtvYnJvMTIzQGdtYWlsLmNvbSIsImlhdCI6MTcwODI4OTY3MSwiZXhwIjoxNzA4MjkzMjcxfQ.g-ivv-b6L3Pv24hXXS8tz4t4Bh33rc-45iZJ12BXaWI"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"omakobro567@gmail.com\",\r\n    \"password\":\"omar#123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forget Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"omakobro567@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/forgetPassword",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"forgetPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OTP\":\"4f31cc\",\r\n    \"expiresIn\":\"1710778520190\",\r\n    \"newPassword\":\"Omar@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/resetPassword",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"resetPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDc5MTk4MywiZXhwIjoxNzEwNzk1NTgzfQ.jOtWKIJ9I9B45OOxbBnVB9EaZM57Fe0oKK1tXD20u-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\":\"Omar@123\",\r\n    \"newPassword\":\"omar#123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/updatePassword",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"updatePassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category End Points",
+			"item": [
+				{
+					"name": "Add Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accessToken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk4MTY4MiwiZXhwIjoxNzEwOTg1MjgyfQ.94MVGM8Y1_kIUkpUZCui6_W7pxtu30mU5AoG1sjRgSk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "categoryName",
+									"value": "Food",
+									"type": "text"
+								},
+								{
+									"key": "categoryImage",
+									"type": "file",
+									"src": "/C:/Users/HP/Downloads/www_google_com/istockphoto-146807105-612x612.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/category/addCategory",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"addCategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk4MTY4MiwiZXhwIjoxNzEwOTg1MjgyfQ.94MVGM8Y1_kIUkpUZCui6_W7pxtu30mU5AoG1sjRgSk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "categoryName",
+									"value": "FOOD",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/category/updateCategory/65fb837187adad0d1ddf2590",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"updateCategory",
+								"65fb837187adad0d1ddf2590"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/category/getAllCategories?sort=name desc&page=1&size=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"getAllCategories"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "name desc"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Brands For Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/category/getBrands/65f8cb00e3fb422f50d54363",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"getBrands",
+								"65f8cb00e3fb422f50d54363"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get The Sub Categories For a Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/category/getSubCategories/65e4a9fbf3e80ed2ccb3a08c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"getSubCategories",
+								"65e4a9fbf3e80ed2ccb3a08c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/category/getCategoryById/65e4aa5ef3e80ed2ccb3a090",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"getCategoryById",
+								"65e4aa5ef3e80ed2ccb3a090"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk4MTY4MiwiZXhwIjoxNzEwOTg1MjgyfQ.94MVGM8Y1_kIUkpUZCui6_W7pxtu30mU5AoG1sjRgSk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:3000/category/deleteCategory/65fb854758958a81c97a7e76",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"deleteCategory",
+								"65fb854758958a81c97a7e76"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sub Category End Points",
+			"item": [
+				{
+					"name": "Add Sub Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk5MzExNSwiZXhwIjoxNzEwOTk2NzE1fQ.-30c7zCxTBY1fL9mn8rvzt-AWxCVX96f7ym3qGzA4p4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "subCategoryName",
+									"value": "Adult Clothing",
+									"type": "text"
+								},
+								{
+									"key": "subCategoryImage",
+									"type": "file",
+									"src": "/C:/Users/HP/Downloads/tessa-simpson-eTCogYz7kQE-unsplash.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/subCategory/addSubCategory/65e4aa5ef3e80ed2ccb3a090",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"subCategory",
+								"addSubCategory",
+								"65e4aa5ef3e80ed2ccb3a090"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Sub Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDY0NTNjY2Q1YmFjYTkwNWM0MDUzZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcwODU0MTI3NywiZXhwIjoxNzA4NTQ0ODc3fQ.IUotGqXMjk9zb1o4bVR9dSrigxpsFBL-FKA2HghhYCw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "subCategoryName",
+									"value": "Laptops",
+									"type": "text"
+								},
+								{
+									"key": "subCategoryImage",
+									"type": "file",
+									"src": "/C:/Users/HP/Downloads/electronic-device-balancing-concept.jpg"
+								},
+								{
+									"key": "oldPublicId",
+									"value": "ecommerce/Categories/PVyW/SubCategories/zrC3/ae3fzbzyjpqenbixmcm8",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/subCategory/updateSubCategory/65d645cfcd5baca905c40552",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"subCategory",
+								"updateSubCategory",
+								"65d645cfcd5baca905c40552"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Sub Categories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:3000/subCategory/getAllSubCategories?sort=name desc&page=1&size=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"subCategory",
+								"getAllSubCategories"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "name desc"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Sub Category",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk5MzExNSwiZXhwIjoxNzEwOTk2NzE1fQ.-30c7zCxTBY1fL9mn8rvzt-AWxCVX96f7ym3qGzA4p4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/subCategory/deleteSubCategory/65e4aad0f3e80ed2ccb3a099",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"subCategory",
+								"deleteSubCategory",
+								"65e4aad0f3e80ed2ccb3a099"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Sub Category By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/subCategory/getSubCategoryById/65e4aad0f3e80ed2ccb3a099",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"subCategory",
+								"getSubCategoryById",
+								"65e4aad0f3e80ed2ccb3a099"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Brands For Sub Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/subCategory/getBrands/65e4aad0f3e80ed2ccb3a099",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"subCategory",
+								"getBrands",
+								"65e4aad0f3e80ed2ccb3a099"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Brands End Points",
+			"item": [
+				{
+					"name": "Add Brand",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk3NzEzOSwiZXhwIjoxNzEwOTgwNzM5fQ.E8TR4yxzNCeGNi1m7OU7AP5yjijAjy58b-AWdcHPFTU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "BrandImage",
+									"type": "file",
+									"src": "/C:/Users/HP/Downloads/dell.png"
+								},
+								{
+									"key": "brandName",
+									"value": "Dell",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/brand/addBrand?categoryId=65f8cb00e3fb422f50d54363&subCategoryId=65e4aad0f3e80ed2ccb3a099",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"brand",
+								"addBrand"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "65f8cb00e3fb422f50d54363"
+								},
+								{
+									"key": "subCategoryId",
+									"value": "65e4aad0f3e80ed2ccb3a099"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Brand",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk3ODk4OCwiZXhwIjoxNzEwOTgyNTg4fQ.fz-_rdPrVj4E5kL_0_K5Bb1yjpMhZIh3dXWlPaeha8c",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "brandName",
+									"value": "Dell",
+									"type": "text"
+								},
+								{
+									"key": "BrandImage",
+									"type": "file",
+									"src": "/C:/Users/HP/Downloads/download (1).png"
+								},
+								{
+									"key": "oldPublicId",
+									"value": "ecommerce/Categories/2WFD/SubCategories/6Q3N/Brands/q6wa/lnhhwl46djqybxqoaka0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/brand/UpdateBrand/65fb76e254876b96df8bb4be",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"brand",
+								"UpdateBrand",
+								"65fb76e254876b96df8bb4be"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Brands",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDY0NTNjY2Q1YmFjYTkwNWM0MDUzZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcwODU0MTI3NywiZXhwIjoxNzA4NTQ0ODc3fQ.IUotGqXMjk9zb1o4bVR9dSrigxpsFBL-FKA2HghhYCw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:3000/brand/getAllBrands?name=asus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"brand",
+								"getAllBrands"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "asus"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Brand",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk3ODk4OCwiZXhwIjoxNzEwOTgyNTg4fQ.fz-_rdPrVj4E5kL_0_K5Bb1yjpMhZIh3dXWlPaeha8c",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/brand/deleteBrand/65fb76e254876b96df8bb4be",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"brand",
+								"deleteBrand",
+								"65fb76e254876b96df8bb4be"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User End Points",
+			"item": [
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDc4NzgwMywiZXhwIjoxNzEwNzkxNDAzfQ.f4bPSUP_Z6lUIuklj9bBdFy1Yoso_-97b0plSuVFOrg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"Omar Kobro\",\r\n    \"email\":\"omakobro567@gmail.com\",\r\n    \"phoneNumbers\":\"01003653241\",\r\n    \"addresses\":\"Sohag City\",\r\n    \"age\":\"20\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/updateUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"updateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDI2OGE1OWM1YTA0NGI0OWFiMzE4NiIsImVtYWlsIjoib21ha29icm8xM0BnbWFpbC5jb20iLCJpc0xvZ2dlZCI6dHJ1ZSwiaWF0IjoxNzA4NTM5NDk5LCJleHAiOjE3MDg1NDMwOTl9.1Mupg_DC7CUm3bArmyrU8lI0u0eP6CjzeABm0jZVMaU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/deleteUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"deleteUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Info",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDI2ZThhYWI3YjYxZGY5NWE2YTU4NSIsImVtYWlsIjoib21ha29icm8xMjNAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcwODUzOTc2MSwiZXhwIjoxNzA4NTQzMzYxfQ.ZsMIJZ-8DfBJSiWTeO_VC_LCepClbtOeUBh_XXRrWW0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/getUserInfo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"getUserInfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Soft Delete",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDc5MDM2NywiZXhwIjoxNzEwNzkzOTY3fQ.amOpAq3GFmUGJYb-dmeYNeq-lgKYtpZZKvXp2CzxqGg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/user/deactivateUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"deactivateUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product End Points",
+			"item": [
+				{
+					"name": "Add Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk5MzExNSwiZXhwIjoxNzEwOTk2NzE1fQ.-30c7zCxTBY1fL9mn8rvzt-AWxCVX96f7ym3qGzA4p4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Dell Alienware 2",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Gaming Laptop",
+									"type": "text"
+								},
+								{
+									"key": "basePrice",
+									"value": "115000",
+									"type": "text"
+								},
+								{
+									"key": "discount",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "specs",
+									"value": "{\"CPU\":\"I9-14900H\", \"GPU\":\"RTX-4090\"}",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/HP/Downloads/alienware.webp"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/product/addProduct/?brandId=65e4ab19f3e80ed2ccb3a09f&subCategoryId=65e4aad0f3e80ed2ccb3a099&categoryId=65f8cb00e3fb422f50d54363",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"product",
+								"addProduct",
+								""
+							],
+							"query": [
+								{
+									"key": "brandId",
+									"value": "65e4ab19f3e80ed2ccb3a09f"
+								},
+								{
+									"key": "subCategoryId",
+									"value": "65e4aad0f3e80ed2ccb3a099"
+								},
+								{
+									"key": "categoryId",
+									"value": "65f8cb00e3fb422f50d54363"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk5MzExNSwiZXhwIjoxNzEwOTk2NzE1fQ.-30c7zCxTBY1fL9mn8rvzt-AWxCVX96f7ym3qGzA4p4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "basePrice",
+									"value": "120000",
+									"type": "text"
+								},
+								{
+									"key": "discount",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "100",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/product/updateProduct/65e4aea3d7eec7c64be0870b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"product",
+								"updateProduct",
+								"65e4aea3d7eec7c64be0870b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPreducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/product/getProducts?sort=name asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"product",
+								"getProducts"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "name asc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart End Points",
+			"item": [
+				{
+					"name": "Add Product To Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmI2ZDI4ZmQ3ZWQwZTBkYzJiYjM1YSIsImVtYWlsIjoib21ha29icm8xMjNAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk3OTc4NywiZXhwIjoxNzEwOTgzMzg3fQ._KiWOSqPBD897poyvGtRHupiKk__Gw2jQLIMRjvNs2s",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"65e4aea3d7eec7c64be0870b\",\r\n    \"quantity\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/cart/addProductToCart",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cart",
+								"addProductToCart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Product From Cart",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmI2ZDI4ZmQ3ZWQwZTBkYzJiYjM1YSIsImVtYWlsIjoib21ha29icm8xMjNAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk3OTc4NywiZXhwIjoxNzEwOTgzMzg3fQ._KiWOSqPBD897poyvGtRHupiKk__Gw2jQLIMRjvNs2s",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/cart/deleteProductFromCart/65e4aea3d7eec7c64be0870b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cart",
+								"deleteProductFromCart",
+								"65e4aea3d7eec7c64be0870b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Coupon End Points",
+			"item": [
+				{
+					"name": "Add Coupon",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk4MzM4NiwiZXhwIjoxNzEwOTg2OTg2fQ.A_EPzm4hd_WMrOl9_yGIrPz6M6QzBJum7mlb3-JFtZk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"couponCode\":\"coupon4\",\r\n    \"couponValue\":15,\r\n    \"couponStatus\":\"valid\",\r\n    \"isPercentage\":\"true\",\r\n    \"fromDate\":\"2024-3-22\",\r\n    \"toDate\":\"2024-3-30\",\r\n    \"Users\":[\r\n                {\r\n        \"userId\":\"65d26a003a226c4387667984\",\r\n        \"maxUsage\":\"3\"\r\n        },\r\n        {\r\n        \"userId\":\"65fb6d28fd7ed0e0dc2bb35a\",\r\n        \"maxUsage\":\"3\"\r\n        }\r\n        ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/coupon/addCoupon",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"coupon",
+								"addCoupon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle Enable and Disable Coupon",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk4MzM4NiwiZXhwIjoxNzEwOTg2OTg2fQ.A_EPzm4hd_WMrOl9_yGIrPz6M6QzBJum7mlb3-JFtZk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"couponCode\":\"coupon3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/coupon/EnableAndDisableCoupon",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"coupon",
+								"EnableAndDisableCoupon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Disabled Coupons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/coupon/getAllDisabledCoupons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"coupon",
+								"getAllDisabledCoupons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Enabled Coupons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/coupon/getAllEnabledCoupons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"coupon",
+								"getAllEnabledCoupons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Coupons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/coupon/getAllCoupons?page=2&size=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"coupon",
+								"getAllCoupons"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "size",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Coupon By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/coupon/getCouponById/65ec6afcb7df6c717010bde3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"coupon",
+								"getCouponById",
+								"65ec6afcb7df6c717010bde3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Coupon",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk0ODUzNSwiZXhwIjoxNzEwOTUyMTM1fQ.r8pk2a10huvsOPdItahHO2_fWO2_BMoeIu8S9Ftdor8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"couponCode\":\"coupon2test\",\r\n    \"couponValue\":\"100\",\r\n    \"couponStatus\":\"valid\",\r\n    \"isFixed\":\"false\",\r\n    \"isPercentage\":\"true\",\r\n    \"fromDate\":\"2024-05-1\",\r\n    \"toDate\":\"2024-04-30\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/coupon/updateCoupon/65ec6afcb7df6c717010bde3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"coupon",
+								"updateCoupon",
+								"65ec6afcb7df6c717010bde3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order End Points",
+			"item": [
+				{
+					"name": "Payments",
+					"item": [
+						{
+							"name": "Pay With Stripe",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accesstoken",
+										"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDg4NDUwNSwiZXhwIjoxNzEwODg4MTA1fQ.4DAe8K8Y3EYbCqL8k0nO_bRiXAZYbzQw9Dx7xDa3GNw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/order/payWithStripe/65fa0e087defb5b49f305294",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"order",
+										"payWithStripe",
+										"65fa0e087defb5b49f305294"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refund Order",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accesstoken",
+										"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDg4NDUwNSwiZXhwIjoxNzEwODg4MTA1fQ.4DAe8K8Y3EYbCqL8k0nO_bRiXAZYbzQw9Dx7xDa3GNw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/order/refund/65fa0bf0bc068f553b3ae837",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"order",
+										"refund",
+										"65fa0bf0bc068f553b3ae837"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "create order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk4ODU1NCwiZXhwIjoxNzEwOTkyMTU0fQ.I7H3tYf6lYNFB0Kys7ZmWehLcywn50dacKjjkbLG4_M",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"65e4aea3d7eec7c64be0870b\",    \r\n    \"quantity\":\"1\",    \r\n    \"couponCode\":\"\",    \r\n    \"paymentMethod\":\"Stripe\",    \r\n    \"phoneNumbers\":[\r\n        \"01003653241\",\r\n        \"01003653242\"\r\n    ],    \r\n    \"address\":\"10th Of Ramadan City\",    \r\n    \"city\":\"10th Of Ramadan City\",    \r\n    \"postalCode\":\"055\",\r\n    \"country\":\"Egypt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/order/createOrder",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"order",
+								"createOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "convert cart to order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk4ODU1NCwiZXhwIjoxNzEwOTkyMTU0fQ.I7H3tYf6lYNFB0Kys7ZmWehLcywn50dacKjjkbLG4_M",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n    \"paymentMethod\":\"Stripe\",    \r\n    \"phoneNumbers\":[\r\n        \"01003653241\",\r\n        \"01003653242\"\r\n    ],    \r\n    \"address\":\"10th Of Ramadan City\",    \r\n    \"city\":\"10th Of Ramadan City\",    \r\n    \"postalCode\":\"055\",\r\n    \"country\":\"Egypt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/order/cartToOrder",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"order",
+								"cartToOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deliver Order",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk4ODU1NCwiZXhwIjoxNzEwOTkyMTU0fQ.I7H3tYf6lYNFB0Kys7ZmWehLcywn50dacKjjkbLG4_M",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/order/deliverOrder/65fb9da5936690a723a88df6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"order",
+								"deliverOrder",
+								"65fb9da5936690a723a88df6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel  Order",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDg4NDUwNSwiZXhwIjoxNzEwODg4MTA1fQ.4DAe8K8Y3EYbCqL8k0nO_bRiXAZYbzQw9Dx7xDa3GNw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/order/cancelOrder/65fa0d6d7defb5b49f305283",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"order",
+								"cancelOrder",
+								"65fa0d6d7defb5b49f305283"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Add Review",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk2NDEzNiwiZXhwIjoxNzEwOTY3NzM2fQ.SZSN1FcSqG5R05q5IOoyQNxqnK_fdWFASrzdXjy6ArY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reviewComment\":\"Bad\",\r\n    \"reviewRate\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/review/addReview/65e4ad95d7eec7c64be08701",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"review",
+								"addReview",
+								"65e4ad95d7eec7c64be08701"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Review",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Zjg2NWFiNjNhNmU2MTAwOTM5N2NmZSIsImVtYWlsIjoib21ha29icm81NjdAZ21haWwuY29tIiwiaXNMb2dnZWQiOnRydWUsImlhdCI6MTcxMDk2NDEzNiwiZXhwIjoxNzEwOTY3NzM2fQ.SZSN1FcSqG5R05q5IOoyQNxqnK_fdWFASrzdXjy6ArY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/review/deleteReview/65fb40b571533002cdbe7214",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"review",
+								"deleteReview",
+								"65fb40b571533002cdbe7214"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reviews For A Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/review/getReviewsForProduct/65e4ad95d7eec7c64be08701?size=2&page=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"review",
+								"getReviewsForProduct",
+								"65e4ad95d7eec7c64be08701"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

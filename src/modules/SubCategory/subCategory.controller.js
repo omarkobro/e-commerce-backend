@@ -3,6 +3,9 @@ import Category from "../../../DB/models/category.model.js";
 import SubCategory from "../../../DB/models/sub-category.model.js"
 import generateUniqueString from "../../utils/generateUniqueString.js"
 import cloudinaryConnection from "../../utils/cloudinary.js";
+import { ApiFeatures } from "../../utils/api-features.js";
+import brandModel from "../../../DB/models/brand.model.js";
+import productModel from "../../../DB/models/product.model.js";
 
 //==================== Add Sub Category =======================
 export let addSubCategory = async (req,res,next)=>{
@@ -48,16 +51,16 @@ export let addSubCategory = async (req,res,next)=>{
 } 
 //==================== Update Sub Category =======================
 
-export const updateSubCategory = async (req, res, next) => {
+export let updateSubCategory = async (req, res, next) => {
     // 1- destructuring _id from the request authUser
-    const { _id } = req.authUser
+    let { _id } = req.authUser
     // 2- destructuring the request body
-    const { subCategoryName, oldPublicId } = req.body
+    let { subCategoryName, oldPublicId } = req.body
     // 3- destructuring the request params 
-    const { subCategoryId } = req.params
+    let { subCategoryId } = req.params
 
     // 4- check if the category is exist using sub categoryId
-    const subCategory = await SubCategory.findById(subCategoryId).populate([{path:"categoryId",select:"folderId"}])
+    let subCategory = await SubCategory.findById(subCategoryId).populate([{path:"categoryId",select:"folderId"}])
     if (!subCategory) return next({ cause: 404, message: 'Category not found' })
 
     // 5- check if the user wants to update the name field
@@ -68,7 +71,7 @@ export const updateSubCategory = async (req, res, next) => {
         }
 
         // 5.2 check if the new category name is already exist
-        const isNameDuplicated = await SubCategory.findOne({ subCategoryName })
+        let isNameDuplicated = await SubCategory.findOne({ subCategoryName })
         if (isNameDuplicated) {
             return next({ cause: 409, message: 'Category name is already exist' })
         }
@@ -83,9 +86,9 @@ export const updateSubCategory = async (req, res, next) => {
     if (oldPublicId) {
         if (!req.file) return next({ cause: 400, message: 'Image is required' })
 
-        const newPulicId = oldPublicId.split(`${subCategory.folderId}/`)[1]
+        let newPulicId = oldPublicId.split(`${subCategory.folderId}/`)[1]
 
-        const { secure_url } = await cloudinaryConnection().uploader.upload(req.file.path, {
+        let { secure_url } = await cloudinaryConnection().uploader.upload(req.file.path, {
             folder: `${process.env.MAIN_FOLDER}/Categories/${subCategory.categoryId.folderId}/SubCatiegores/${subCategory.folderId}`,
             public_id: newPulicId
         })
@@ -100,8 +103,66 @@ export const updateSubCategory = async (req, res, next) => {
 
 
 //============================== get all Sub categories ==============================
-export const getAllSubCategories = async (req, res, next) => {
-    const subCategories = await SubCategory.find().populate([{
-        path:"Brands"}])
-    res.status(200).json({ success: true, message: 'Sub Categories fetched successfully', data: subCategories })
+export let getAllSubCategories = async (req, res, next) => {
+    // let subCategories = await SubCategory.find().populate([{
+    //     path:"Brands"}])
+    // res.status(200).json({ success: true, message: 'Sub Categories fetched successfully', data: subCategories })
+    let {page, size,sort,...search } = req.query
+    let features = new ApiFeatures(req.query,SubCategory.find().populate([{path:"Brands"}]) )
+    .pagination({page,size})
+    .sort(sort)
+    .search(search)
+    let subCategories = await features.mongooseQuery
+    res.status(200).json({ success: true, data: subCategories })
 }
+//============================== delete Sub category ==============================
+export let deleteSubCategory = async (req, res, next) => {
+
+    //1 destruct Sub Category Id
+    let { subCategoryId } = req.params
+    let {_id} = req.authUser
+    // 2- delete Sub category
+    let subCatgory = await SubCategory.findByIdAndDelete(subCategoryId).populate([{path:"categoryId",select:"folderId"}])
+    if (!subCatgory) return next({ cause: 404, message: 'Sub Category not found' })
+    
+    // 3-delete related Brands
+    let relatedBrands = await brandModel.deleteMany({ subCategoryId })
+    let relatedProducts = await productModel.deleteMany({ subCategoryId })
+    // 4- delete the category folder from cloudinary
+    await cloudinaryConnection().api.delete_resources_by_prefix(`${process.env.MAIN_FOLDER}/Categories/${subCatgory.categoryId.folderId}/SubCategories/${subCatgory.folderId}`)
+    await cloudinaryConnection().api.delete_folder(`${process.env.MAIN_FOLDER}/Categories/${subCatgory.categoryId.folderId}/SubCategories/${subCatgory.folderId}`)
+    res.status(200).json({ success: true, message: 'Sub Category deleted successfully' })
+}
+
+//============================== get Sub Category By Id ==============================
+export let getSubCategoryById = async(req,res,next)=>{
+    //1-destruct Data
+    let {subCategoryId} = req.params
+    //2- check for category 
+    let checkSubCategory = await SubCategory.findById(subCategoryId)
+    if(!checkSubCategory){
+        return next({ cause: 404, message: 'Category not found' })
+    }
+    res.status(200).json({ message: 'Success', checkSubCategory })
+}
+
+
+// ==================== Get All Brands for a specific Sub Category =========================
+
+export let getBrandsForSubCategory = async(req,res,next)=>{
+    //1-destruct Data
+    let {subCategoryId} = req.params
+    //2- check for Sub category 
+    let checkSubCategory = await SubCategory.findById(subCategoryId)
+    if(!checkSubCategory){
+        return next({ cause: 404, message: 'Sub Category not found' })
+    }
+    //3- get all Brands where the Subcategory Id is = to subCategory 
+    let getAllSubCategories = await brandModel.find({subCategoryId})
+    if(!getAllSubCategories){
+        return next({message:"No Brands found", cause:404})
+    }
+    res.status(200).json({ message: 'Success', getAllSubCategories })
+}
+
+

@@ -6,7 +6,7 @@
 import nodemailer from "nodemailer";
 
 
-export let sendEmail = async ({to = "", subject = "no reply", message = "<h1>no reply</h1>" })=>{
+export let sendEmail = async ({to = "", subject = "no reply", message = "<h1>no reply</h1>",attachments })=>{
     // Here we are setting up the configuration
     const transporter = nodemailer.createTransport({
         host: "localhost", // we can rplace with "smtp.forwardemail.net" in case of faliure of the local host >> simple mail transfer protocol
@@ -23,7 +23,8 @@ export let sendEmail = async ({to = "", subject = "no reply", message = "<h1>no 
         from: `"no-reply" <${process.env.EMAIL}>`,
         to,
         subject,
-        html:message
+        html:message,
+        attachments
     })
     return info.accepted.length > 0 // explaination !!
 }

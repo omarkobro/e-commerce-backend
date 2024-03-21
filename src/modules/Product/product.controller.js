@@ -18,7 +18,7 @@ export let addProduct = async (req,res,next)=>{
     let brand = await Brand.findById(brandId)
     if(!brand){
         return next(new Error("Brand Not Found" , {casue:404}))
-    }
+    }  
 
     //2.1- Check For The Category
     if(brand.categoryId.toString() !== categoryId){
@@ -27,7 +27,7 @@ export let addProduct = async (req,res,next)=>{
     //2.2- Check For The Sub-Category
     if(brand.subCategoryId.toString() !== subCategoryId){
         return next(new Error("Brand is Not Found in this sub category" , {casue:404}))
-    }
+    } 
 
     //3- make adding product is only for Super Admins and the brand owner
     console.log(addedBy);

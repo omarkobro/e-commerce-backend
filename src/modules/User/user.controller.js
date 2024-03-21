@@ -49,3 +49,17 @@ export let getAccInfo = async(req,res,next)=>{
     if(!user) return next(new Error('user not found' , {cause:404}))
     res.status(200).json({ message:'User Information' , user });
 }
+
+
+//============== Deactivate User Account ========================
+export let softDelete = async(req,res,next) =>{
+    let {_id} = req.authUser
+
+    let softDeletedUser = await User.findByIdAndUpdate(_id, {
+        Status:"Inactive"
+    },{new:true})
+    if(!softDeletedUser){
+        return next(new Error('user not found' , {cause:404}))
+    }
+    res.status(200).json({ message:'User Deactivated successfully ' , softDeletedUser });
+}
