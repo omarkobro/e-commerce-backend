@@ -4,7 +4,7 @@ import { generalValidationRule } from "../../utils/generalValidation.js";
 export const addBrandSchema = {
     body:Joi.object({
         brandName: Joi.string().required(),
-    }),// ?????
+    }),
     query:Joi.object({
         categoryId: generalValidationRule.dbId.required(),
         subCategoryId: generalValidationRule.dbId.required(),

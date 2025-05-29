@@ -26,7 +26,7 @@ export let sendEmail = async ({to = "", subject = "no reply", message = "<h1>no 
         html:message,
         attachments
     })
-    return info.accepted.length > 0 // explaination !!
+    return info.accepted.length > 0 
 }
 
 

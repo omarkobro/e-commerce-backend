@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userName\":\"Omar Kobro II\",\r\n    \"email\":\"omakobro123@gmail.com\",\r\n    \"password\":\"omar#123\",\r\n    \"age\":20,\r\n    \"phoneNumbers\":[\"01003653241\"],\r\n    \"addresses\":[\"Sharkia\"],\r\n    \"role\":\"admin\"\r\n    \r\n}",
+							"raw": "{\r\n    \"userName\":\"7mody BTS\",\r\n    \"email\":\"mohamedmedhatt2003@gmail.com\",\r\n    \"password\":\"7mody196370\",\r\n    \"age\":20,\r\n    \"phoneNumbers\":[\"01098276997\"],\r\n    \"addresses\":[\"banha\"],\r\n    \"role\":\"admin\"\r\n    \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

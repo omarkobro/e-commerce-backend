@@ -1,5 +1,5 @@
 
-// here is dedeicated file for the routers 
+// here is dedicated file for the routers 
 import authRouter from "./Authentication/auth.router.js"
 import categoryRouter from "./Category/category.router.js"
 import subCategoryRouter from "./SubCategory/subCategory.router.js"

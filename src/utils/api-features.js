@@ -41,7 +41,6 @@ export class ApiFeatures {
         if (search.priceFrom && !search.priceTo) queryFilter.appliedPrice = { $gte: search.priceFrom }
         if (search.priceTo && !search.priceFrom) queryFilter.appliedPrice = { $lte: search.priceTo }
         if (search.priceTo && search.priceFrom) queryFilter.appliedPrice = { $gte: search.priceFrom, $lte: search.priceTo }
-
         this.mongooseQuery = this.mongooseQuery.find(queryFilter)
         return this
     }
